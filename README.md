@@ -12,7 +12,9 @@ A Flutter package that allows you to easily work with Hive databases. With this 
  - Delete a single row or all data from a box
  - Copy selected values
  - Select specific color for the Hive UI view
- 
+ - Support all platfoem (Android - Web - IOS - Windows - Linux - Mac )
+
+
 ![alt text](https://github.com/AmrSaied/hive_ui/blob/main/TableList.png?raw=true)
 ![alt text](https://github.com/AmrSaied/hive_ui/blob/main/TableDetails.png?raw=true)
 ![alt text](https://github.com/AmrSaied/hive_ui/blob/main/AddNewRow.png?raw=true)
