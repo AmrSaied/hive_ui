@@ -254,7 +254,7 @@ class _HiveBoxesViewState extends State<HiveBoxesView> {
               physics: const NeverScrollableScrollPhysics(),
               children: [
                 HiveBoxesList(
-                  boxesNames: boxesList.map((e) => e.name).toList(),
+                  boxes: boxesList.toList(),
                   onBoxNameSelected: (boxName) => _onBoxSelected(
                     boxName,
                     boxesList,

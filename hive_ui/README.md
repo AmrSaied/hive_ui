@@ -41,13 +41,15 @@ import 'package:hive_ui/hive_ui.dart';
 ```
 -  To route to the Hive UI view:
 ```sh
-Navigator.push(
-    context,
-  HiveBoxesView(
-        hiveBoxes: Boxes.allBoxes,
-        onError: (String errorMessage) =>
-            PopUpHelper.showToast('', errorMessage)
-      ));
+     Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HiveBoxesView(
+                hiveBoxes: Boxes.allBoxes,
+                onError: (String errorMessage) =>
+                {
+                  print(errorMessage)
+                })),
+          );
 ```
 -  Example for Box view:
 ```sh
@@ -98,8 +100,8 @@ Please note that this is a sample README.md and you should replace the parts tha
 [//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
 
 [Example]: <https://github.com/AmrSaied/hive_ui>
-[the GitHub issue tracker]: <https://github.com/AmrSaied/hive_ui>
-[contributing guidelines]: <https://github.com/AmrSaied/hive_ui>
+[the GitHub issue tracker]: <https://github.com/AmrSaied/hive_ui/issues>
+[contributing guidelines]: <https://github.com/AmrSaied/hive_ui/blob/main/Contributing.md>
 
    
    

@@ -1,7 +1,7 @@
 name: hive_ui
 description:
   A Flutter package that allows you to easily work with Hive databases. With this package, you can explore all database boxes, edit table rows, add new rows to tables, search boxes by column name and value, delete rows or all data from a box, copy selected values and select specific color for the Hive UI view.
-version: 1.0.0
+version: 1.0.2
 homepage: "https://github.com/AmrSaied/hive_ui"
 
 environment:

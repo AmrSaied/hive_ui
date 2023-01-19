@@ -4,14 +4,14 @@ import 'package:hive_ui/widgets/update_dialog_type_picker.dart';
 
 import 'idgenerator.dart';
 
-
 class AddNewDialog extends StatefulWidget {
-    final Map<String, dynamic> objectAsJson;
+  final Map<String, dynamic> objectAsJson;
 
   final List<String> allColumns;
+
   const AddNewDialog({
-    Key? key,required this.objectAsJson,
-  
+    Key? key,
+    required this.objectAsJson,
     required this.allColumns,
   }) : super(key: key);
 
@@ -21,46 +21,43 @@ class AddNewDialog extends StatefulWidget {
 
 class _AddNewDialogState extends State<AddNewDialog> {
   UpdateDialogType fieldType = UpdateDialogType.string;
-    final textControllers = <String, TextEditingController>{};
+  final textControllers = <String, TextEditingController>{};
   late bool booleanFieldValue;
-
 
   @override
   void initState() {
-  
-   
     super.initState();
   }
-    void initTextControllers() {
-      var id = IdGenerator.generate();
-      for(int index=0;index<widget.allColumns.length;index++)
-      {
-        if(widget.allColumns[index]=='id')
-        { textControllers[widget.allColumns[index]] =
-        TextEditingController(text:id );
-        widget.objectAsJson[widget.allColumns[index]] = id;
-        }
-       else{ textControllers[widget.allColumns[index]] =
-        TextEditingController();}  
-      }
 
-    
-   
+  void initTextControllers() {
+    var id = IdGenerator.generate();
+    for (int index = 0; index < widget.allColumns.length; index++) {
+      if (widget.allColumns[index] == 'id') {
+        textControllers[widget.allColumns[index]] =
+            TextEditingController(text: id);
+        widget.objectAsJson[widget.allColumns[index]] = id;
+      } else {
+        textControllers[widget.allColumns[index]] = TextEditingController();
+      }
+    }
   }
+
   @override
   void dispose() {
-   //try{_controller.dispose();}catch(e){}
+    //try{_controller.dispose();}catch(e){}
     super.dispose();
   }
-    void onTypeChanged(UpdateDialogType? type) {
+
+  void onTypeChanged(UpdateDialogType? type) {
     if (type == UpdateDialogType.bool) {
       booleanFieldValue = false;
     }
     setState(() => fieldType = type!);
   }
+
   @override
   Widget build(BuildContext context) {
-     initTextControllers();
+    initTextControllers();
     final mediaQuerySize = MediaQuery.of(context).size;
     return Dialog(
       child: SizedBox(
@@ -80,76 +77,80 @@ class _AddNewDialogState extends State<AddNewDialog> {
                 child: Column(
                   children: widget.allColumns.map(
                     (column) {
-                      
-      
                       return Column(
                         children: [
                           ListTile(
                             title: Text(column),
-                           
-                            
-                           trailing:SizedBox(width: 200,child:      
-                               (fieldType != UpdateDialogType.bool)?
-                                TextField(
-                                  readOnly:
-                                      fieldType == UpdateDialogType.datePicker,
-                               //   onTap: () async => await onFormFieldTapped(),
-                               onChanged: (value) =>      widget.objectAsJson[column] = textControllers[column]?.text,
-                             
-                               onEditingComplete:() {
-                                   switch (fieldType) {
-                  case UpdateDialogType.datePicker:
-                     widget.objectAsJson[column]  = textControllers[column]?.text;
-                    break;
-                  case UpdateDialogType.string:
-                            widget.objectAsJson[column] = textControllers[column]?.text;
-                    break;
-                  case UpdateDialogType.num:
-                            widget.objectAsJson[column] = num.parse(textControllers[column]!.text);
-                    break;
-                  case UpdateDialogType.bool:
-                            widget.objectAsJson[column] = booleanFieldValue;
-                    break;
-                }
-                               },
-                             
-                                  controller: textControllers[column],
-                                  textAlign: TextAlign.center,
-                                  decoration: InputDecoration(
-                                    hintText: 'New Value',
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(5),
-                                    ),
-                                  ),
-                                )
-                              :
-                                DropdownButtonFormField<bool>(
-                                  items: [true, false]
-                                      .map((e) => DropdownMenuItem(
-                                            value: e,
-                                            child: Text(e.toString()),
-                                          ))
-                                      .toList(),
-                                  onChanged: (value) => setState(
-                                    () => booleanFieldValue = value!,
-                                  ),
-                                  decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 16,
-                                  )),
-                                )
-                          
-                              ),
-                            onTap: () {
-                           
-                            },
+                            trailing: SizedBox(
+                                width: 200,
+                                child: (fieldType != UpdateDialogType.bool)
+                                    ? TextField(
+                                        readOnly: fieldType ==
+                                            UpdateDialogType.datePicker,
+                                        //   onTap: () async => await onFormFieldTapped(),
+                                        onChanged: (value) =>
+                                            widget.objectAsJson[column] =
+                                                textControllers[column]?.text,
+
+                                        onEditingComplete: () {
+                                          switch (fieldType) {
+                                            case UpdateDialogType.datePicker:
+                                              widget.objectAsJson[column] =
+                                                  textControllers[column]?.text;
+                                              break;
+                                            case UpdateDialogType.string:
+                                              widget.objectAsJson[column] =
+                                                  textControllers[column]?.text;
+                                              break;
+                                            case UpdateDialogType.num:
+                                              widget.objectAsJson[column] =
+                                                  num.parse(
+                                                      textControllers[column]!
+                                                          .text);
+                                              break;
+                                            case UpdateDialogType.bool:
+                                              widget.objectAsJson[column] =
+                                                  booleanFieldValue;
+                                              break;
+                                          }
+                                        },
+
+                                        controller: textControllers[column],
+                                        textAlign: TextAlign.center,
+                                        decoration: InputDecoration(
+                                          hintText: 'New Value',
+                                          border: OutlineInputBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                        ),
+                                      )
+                                    : DropdownButtonFormField<bool>(
+                                        items: [true, false]
+                                            .map((e) => DropdownMenuItem(
+                                                  value: e,
+                                                  child: Text(e.toString()),
+                                                ))
+                                            .toList(),
+                                        onChanged: (value) => setState(
+                                          () => booleanFieldValue = value!,
+                                        ),
+                                        decoration: const InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                        )),
+                                      )),
+                            onTap: () {},
                           ),
-                        SizedBox(width: 200,height: 200,
-                          child: UpdateDialogTypePicker(
-                    selectedType: fieldType,
-                    onTypeChanged: onTypeChanged,
-                  ),
-                        )
+                          SizedBox(
+                            width: 200,
+                            height: 200,
+                            child: UpdateDialogTypePicker(
+                              selectedType: fieldType,
+                              onTypeChanged: onTypeChanged,
+                            ),
+                          )
                         ],
                       );
                     },
@@ -162,11 +163,10 @@ class _AddNewDialogState extends State<AddNewDialog> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 TextButton(
-                  onPressed: () {
-                 
-                  },
+                  onPressed: () {},
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.red, fixedSize: const Size(
+                    foregroundColor: Colors.red,
+                    fixedSize: const Size(
                       100,
                       50,
                     ),
@@ -175,13 +175,11 @@ class _AddNewDialogState extends State<AddNewDialog> {
                 ),
                 TextButton(
                   onPressed: () {
-                 Object updatedValue;
-          
-            
-                Navigator.pop(context, widget.objectAsJson);
+                    Navigator.pop(context, widget.objectAsJson);
                   },
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.green, fixedSize: const Size(
+                    foregroundColor: Colors.green,
+                    fixedSize: const Size(
                       100,
                       50,
                     ),
@@ -197,5 +195,3 @@ class _AddNewDialogState extends State<AddNewDialog> {
     );
   }
 }
-
-

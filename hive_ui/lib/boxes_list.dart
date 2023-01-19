@@ -1,15 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import 'search/search_widget.dart';
 
 class HiveBoxesList extends StatefulWidget {
-  final List<String> boxesNames;
+  final List<Box> boxes;
   final void Function(String boxName) onBoxNameSelected;
+
   const HiveBoxesList({
     Key? key,
-    required this.boxesNames,
+    required this.boxes,
     required this.onBoxNameSelected,
   }) : super(key: key);
 
@@ -24,7 +26,7 @@ class _HiveBoxesListState extends State<HiveBoxesList> {
 
   @override
   void initState() {
-    boxNamesList = widget.boxesNames;
+    boxNamesList = widget.boxes.map((e) => e.name).toList();
     super.initState();
   }
 
@@ -33,11 +35,13 @@ class _HiveBoxesListState extends State<HiveBoxesList> {
     if (_timer?.isActive ?? false) _timer?.cancel();
     _timer = Timer(const Duration(milliseconds: 500), () {
       if (searchValue.isNotEmpty) {
-        boxNamesList = widget.boxesNames
+        boxNamesList = widget.boxes
+            .map((e) => e.name)
+            .toList()
             .where((element) => element.contains(searchValue))
             .toList();
       } else {
-        boxNamesList = widget.boxesNames;
+        boxNamesList = widget.boxes.map((e) => e.name).toList();
       }
       setState(() {});
     });
@@ -47,6 +51,13 @@ class _HiveBoxesListState extends State<HiveBoxesList> {
   void dispose() {
     _timer?.cancel();
     super.dispose();
+  }
+
+  int getLength(String name) {
+    final selectedBox = widget.boxes.singleWhere(
+      (element) => element.name == name,
+    );
+    return selectedBox.values.length;
   }
 
   @override
@@ -64,6 +75,7 @@ class _HiveBoxesListState extends State<HiveBoxesList> {
                 (boxName) {
                   return ListTile(
                     title: Text(boxName),
+                    trailing: Text("Length : ${getLength(boxName)}"),
                     onTap: () => widget.onBoxNameSelected(boxName),
                   );
                 },
