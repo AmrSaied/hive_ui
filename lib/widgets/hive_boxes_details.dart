@@ -218,8 +218,10 @@ class _HiveBoxesDetailsState extends State<HiveBoxesDetails> with BoxViewMixin {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 ElevatedButton(
-                  onPressed: () => widget.onAddRow
-                      .call({}, _paginationModel.value.columnsKeysToShow),
+                  onPressed: () => widget.onAddRow.call(
+                    {},
+                    _paginationModel.value.columnsKeysToShow,
+                  ),
                   style: ElevatedButton.styleFrom(
                     fixedSize: buttonSize,
                   ),

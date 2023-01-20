@@ -3,7 +3,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hive_ui/boxes_list.dart';
 import 'package:hive_ui/core/box_update_handler.dart';
 import 'package:hive_ui/core/hive_view_state.dart';
-import 'package:hive_ui/widgets/addDialog.dart';
+import 'package:hive_ui/widgets/add_dialog.dart';
 import 'package:hive_ui/widgets/update_dialog.dart';
 import 'package:intl/intl.dart';
 
@@ -55,7 +55,7 @@ class _HiveBoxesViewState extends State<HiveBoxesView> {
     super.initState();
   }
 
-  _toPreviousPage() => _pageController.previousPage(
+  void _toPreviousPage() => _pageController.previousPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.ease,
       );

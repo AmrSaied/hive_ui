@@ -10,9 +10,8 @@ import 'widgets/hive_boxes_details.dart';
 bool isMap(dynamic fieldValue) {
   bool containKeys = false;
   try {
-    fieldValue.keys;
-    containKeys = true;
-  } on NoSuchMethodError {
+    containKeys = fieldValue is Map<String, dynamic>;
+  } on TypeError {
     containKeys = false;
   }
   return containKeys;

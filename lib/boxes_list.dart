@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
-
-import 'search/search_widget.dart';
+import 'package:hive_ui/search/search_widget.dart';
 
 class HiveBoxesList extends StatefulWidget {
   final List<Box> boxes;

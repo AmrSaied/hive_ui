@@ -12,19 +12,19 @@ class UpdateDialogTypePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        children: UpdateDialogType.values
-            .map(
-              (e) => RadioListTile<UpdateDialogType>(
+    return Row(
+      children: UpdateDialogType.values
+          .map(
+            (e) => Flexible(
+              child: RadioListTile<UpdateDialogType>(
                 value: e,
                 groupValue: selectedType,
                 onChanged: onTypeChanged,
                 title: Text(e.name),
               ),
-            )
-            .toList(),
-      ),
+            ),
+          )
+          .toList(),
     );
   }
 }

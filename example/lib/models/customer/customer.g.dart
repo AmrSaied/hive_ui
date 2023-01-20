@@ -1,3 +1,5 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
 part of 'customer.dart';
 
 // **************************************************************************
@@ -19,13 +21,14 @@ class CustomerAdapter extends TypeAdapter<Customer> {
       name: fields[1] as String,
       phoneNumber: fields[2] as String,
       numberValueExample: fields[3] as String,
+      organization: fields[4] as Organization,
     );
   }
 
   @override
   void write(BinaryWriter writer, Customer obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -33,7 +36,9 @@ class CustomerAdapter extends TypeAdapter<Customer> {
       ..writeByte(2)
       ..write(obj.phoneNumber)
       ..writeByte(3)
-      ..write(obj.numberValueExample);
+      ..write(obj.numberValueExample)
+      ..writeByte(4)
+      ..write(obj.organization);
   }
 
   @override

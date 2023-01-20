@@ -138,8 +138,6 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
   DropdownEditingController<String>? get _effectiveController =>
       widget.controller ?? _controller;
 
-  late StreamSubscription eventBusSubscription;
-
   DropdownFormFieldState() : super();
   @override
   void initState() {
@@ -174,9 +172,10 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
   void dispose() {
     _scrollController.dispose();
     _debounce?.cancel();
-    try { _searchTextController.dispose(); } catch (e) {}
+    try {
+      _searchTextController.dispose();
+    } catch (e) {}
     super.dispose();
-
   }
 
   @override

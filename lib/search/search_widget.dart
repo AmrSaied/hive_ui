@@ -31,10 +31,10 @@ class _SearchWidgetState extends State<SearchWidget> {
 
   @override
   void dispose() {
-    try{
+    try {
       textEditingController.dispose();
       textEditingController2.dispose();
-    }catch(e){}
+    } catch (e) {}
 
     super.dispose();
   }
@@ -79,7 +79,9 @@ class _SearchWidgetState extends State<SearchWidget> {
             ),
             child: DropdownFormField(
               decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16)),
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.symmetric(horizontal: 16),
+              ),
               onChanged: widget.onSearch,
               displayItemFn: (str) => Text(str ?? ""),
               findFn: (str) async => widget.fields
