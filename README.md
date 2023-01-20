@@ -32,7 +32,7 @@ A Flutter package that allows you to easily work with Hive databases. With this 
 -  Add the package as a dependency in your 'pubspec.yaml' file:
 ```sh
 dependencies:
-  hive_ui: ^1.0.0
+  hive_ui: ^1.0.4
 ```
 -  Import the package in your dart file where you want to use it by adding the following line at the top of the file:
 
@@ -78,7 +78,6 @@ If you encounter any issues while using the package, please file a bug report in
 ## Contributing
 
 If you would like to contribute to the package, please read the [contributing guidelines] before submitting a pull request.
-Please note that this is a sample README.md and you should replace the parts that are specific to your package, such as the package name, version and GitHub repository.
 
 
 ## HiveBoxesView Parameters

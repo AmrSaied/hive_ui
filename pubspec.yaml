@@ -1,7 +1,7 @@
 name: hive_ui
 description:
-  DMS Hive Ui is a package that presents a smart methodology to work with the Hive database, It is easy to view, edit and create new rows.
-version: 1.0.3
+  DBMS Hive Ui is a package that presents a smart methodology to work with the Hive database, It is easy to view, edit and create new rows.
+version: 1.0.4
 homepage: "https://github.com/AmrSaied/hive_ui"
 
 environment:
@@ -20,7 +20,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^2.0.1
   build_runner: ^2.3.3
   hive_generator: ^2.0.0
 

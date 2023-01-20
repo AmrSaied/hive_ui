@@ -8,3 +8,5 @@
 ## 1.0.3
 * Update dialog ui update
 * add row dialog ui update
+## 1.0.4
+* Update description
