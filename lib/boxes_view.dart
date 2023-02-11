@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:hive_ui/boxes_list.dart';
-import 'package:hive_ui/core/box_update_handler.dart';
-import 'package:hive_ui/core/hive_view_state.dart';
-import 'package:hive_ui/widgets/add_dialog.dart';
-import 'package:hive_ui/widgets/update_dialog.dart';
-import 'package:intl/intl.dart';
 
+import 'boxes_list.dart';
+import 'core/box_update_handler.dart';
+import 'core/hive_view_state.dart';
 import 'extensions.dart';
+import 'widgets/add_dialog.dart';
 import 'widgets/hive_boxes_details.dart';
+import 'widgets/update_dialog.dart';
 
 typedef FieldPressedCallback = void Function(
   String boxName,
@@ -26,7 +25,8 @@ class HiveBoxesView extends StatefulWidget {
   final Map<Box, FromJsonConverter> hiveBoxes;
 
   final ErrorCallback onError;
-  final DateFormat? dateFormat;
+  final String? dateFormat;
+
   const HiveBoxesView({
     Key? key,
     this.appBarColor,
@@ -55,11 +55,16 @@ class _HiveBoxesViewState extends State<HiveBoxesView> {
     super.initState();
   }
 
+  /// The method is used to navigate back to the previous page
+  /// It uses the PageController's previousPage method, and sets the duration and curve of the transition
   void _toPreviousPage() => _pageController.previousPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.ease,
       );
 
+  /// The method is used to clear the current opened box
+  /// It creates an instance of BoxUpdateHandler and calls its clearBox method
+  /// If the box is cleared successfully, the state is updated and the previous page is navigated to
   void _onClearBox() async {
     final boxHandler = BoxUpdateHandler(_hiveViewState.value, widget.onError);
     final isCleared = await boxHandler.clearBox();
@@ -69,6 +74,9 @@ class _HiveBoxesViewState extends State<HiveBoxesView> {
     }
   }
 
+  /// The method is used to delete all fields of an object
+  /// It creates an instance of BoxUpdateHandler and calls its deleteFieldOfObject method
+  /// If the fields are deleted successfully, the state is updated and the previous page is navigated to
   void _onDeleteAllFields() async {
     final boxHandler = BoxUpdateHandler(_hiveViewState.value, widget.onError);
     final isDeleted = await boxHandler.deleteFieldOfObject();
@@ -80,11 +88,14 @@ class _HiveBoxesViewState extends State<HiveBoxesView> {
     }
   }
 
+  /// The method is used to add a new row to the current opened box
+  /// It uses the AddNewDialog widget to update the new object's properties
+  /// If the object is updated successfully, it creates an instance of BoxUpdateHandler and calls its addObject method
+  /// If the object is added successfully, the previous page is navigated to
   void _onAddRow(
     Map<String, dynamic> objectAsJson,
     List<String> boxColumns,
   ) async {
-    // final boxHandler = BoxUpdateHandler(_hiveViewState.value, widget.onError);
     final updatedObject = await showDialog(
       context: context,
       builder: (_) => AddNewDialog(

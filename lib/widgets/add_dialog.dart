@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hive_ui/widgets/update_dialog.dart';
-import 'package:hive_ui/widgets/update_dialog_type_picker.dart';
 
-import 'idgenerator.dart';
+import '../services/idgenerator.dart';
+import 'update_dialog.dart';
+import 'update_dialog_type_picker.dart';
 
 class AddNewDialog extends StatefulWidget {
   final Map<String, dynamic> objectAsJson;

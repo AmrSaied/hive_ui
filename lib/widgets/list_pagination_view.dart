@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:number_pagination/number_pagination.dart';
+
+import 'number_pagination_hive_ui.dart';
 
 class ListPaginationView extends StatelessWidget {
   final Function(int) onPageChanged;
@@ -15,7 +16,7 @@ class ListPaginationView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NumberPagination(
+    return NumberPaginationPageHiveUi(
       pageTotal: pageTotal,
       onPageChanged: (page) => onPageChanged(page - 1),
       // initially selected index

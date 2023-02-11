@@ -8,9 +8,11 @@ typedef DropDownFind = Future<List<String>> Function(String str);
 
 class DropdownEditingController<T> extends ChangeNotifier {
   T? _value;
+
   DropdownEditingController({T? value}) : _value = value;
 
   T? get value => _value;
+
   set value(T? newValue) {
     if (_value == newValue) return;
     _value = newValue;
@@ -139,6 +141,7 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
       widget.controller ?? _controller;
 
   DropdownFormFieldState() : super();
+
   @override
   void initState() {
     super.initState();
@@ -361,8 +364,10 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
       _overlayEntry = _createOverlayEntry();
       if (_overlayEntry != null) {
         // Overlay.of(context)!.insert(_overlayEntry!);
-        Overlay.of(context)!
-            .insertAll([_overlayBackdropEntry!, _overlayEntry!]);
+        if (_overlayBackdropEntry != null) {
+          Overlay.of(context)!
+              ?.insertAll([_overlayBackdropEntry!, _overlayEntry!]);
+        }
         setState(() {
           _searchFocusNode.requestFocus();
         });
@@ -433,7 +438,6 @@ class DropdownFormFieldState<T> extends State<DropdownFormField>
   }
 
   _search(String str) async {
-    widget.findFn;
     List<String> items = await widget.findFn(str);
     if (str.isNotEmpty && widget.filterFn != null) {
       items = items.where((item) => widget.filterFn!(item, str)).toList();

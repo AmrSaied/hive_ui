@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_ui/extensions.dart';
-import 'package:hive_ui/search/search_widget.dart';
-import 'package:hive_ui/widgets/columns_filter_dialog.dart';
 
 import '../boxes_view.dart';
+import '../extensions.dart';
+import '../search/search_widget.dart';
+import '../services/flutter_clipboard_hive_ui.dart';
+import 'columns_filter_dialog.dart';
 import 'list_pagination_view.dart';
 
 class HiveBoxesDetails extends StatefulWidget {
@@ -290,7 +290,7 @@ class _HiveBoxesDetailsState extends State<HiveBoxesDetails> with BoxViewMixin {
                     }
                     final json =
                         const JsonEncoder.withIndent("  ").convert(objects);
-                    FlutterClipboard.copy(json);
+                    FlutterClipboardHiveUi.copy(json);
                   },
                   child: const Text('Copy Selected'),
                 )

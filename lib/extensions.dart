@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_ui/widgets/list_details_dialog.dart';
 
 import 'boxes_view.dart';
+import 'services/flutter_clipboard_hive_ui.dart';
 import 'widgets/hive_boxes_details.dart';
+import 'widgets/list_details_dialog.dart';
 
 bool isMap(dynamic fieldValue) {
   bool containKeys = false;
@@ -84,7 +84,7 @@ mixin BoxViewMixin on State<HiveBoxesDetails> {
           onLongPress: () {
             final value = objectAsJson[fieldName];
             final json = const JsonEncoder.withIndent('  ').convert(value);
-            FlutterClipboard.copy(json);
+            FlutterClipboardHiveUi.copy(json);
           },
           Center(
             child: Text(

@@ -8,25 +8,65 @@ class BoxUpdateHandler {
   final HiveViewState _hiveViewState;
   final ErrorCallback _errorCallback;
   final int? objectIndex;
+
+  /// BoxUpdateHandler constructor
+  ///
+  /// [_hiveViewState] : The HiveViewState instance.
+  /// [_errorCallback] : The callback function to handle errors.
+  /// [objectIndex] : Optional, the index of the object to update.
   BoxUpdateHandler(
     this._hiveViewState,
     this._errorCallback, {
     this.objectIndex,
   });
 
+  /// Adds an object to the current opened box
+  ///
+  /// [addedObject] : A Map<String, dynamic> representing the new object to be added.
+  /// Returns a Future<bool> indicating success or failure of the operation.
   Future<bool> addObject(Map<String, dynamic> addedObject) async {
-    final currentBox = _hiveViewState.currentOpenedBox!;
+    // final currentBox = _hiveViewState.currentOpenedBox!;
+    // try {
+    //   final fromJson = _hiveViewState.boxesMap[currentBox]!;
+    //   final newAddedObject = fromJson(addedObject);
+    //   await currentBox.put(addedObject["id"], newAddedObject);
+    //   return true;
+    // } catch (e) {
+    //   _errorCallback(e.toString());
+    //   return false;
+    // }
+
     try {
-      final fromJson = _hiveViewState.boxesMap[currentBox]!;
-      final newAddedObject = fromJson(addedObject);
-      await currentBox.put(addedObject["id"], newAddedObject);
-      return true;
+      bool isThereBoxes = _hiveViewState.boxesMap.entries.isNotEmpty;
+      bool isFoundOpenBox = _hiveViewState.currentOpenedBox != null;
+      bool isHaveIdProperty =
+          addedObject.keys.any((element) => element == "id");
+      if (!isThereBoxes) {
+        _errorCallback("there is Not Boxes");
+        return false;
+      } else if (!isFoundOpenBox) {
+        _errorCallback("there is Not Open Box");
+        return false;
+      } else if (!isHaveIdProperty) {
+        _errorCallback("there is Not ID  Property \n add {\"id\":(888 as id)}");
+        return false;
+      } else {
+        final currentBox = _hiveViewState.currentOpenedBox!;
+
+        final fromJson = _hiveViewState.boxesMap[currentBox]!;
+        final newAddedObject = fromJson(addedObject);
+        await currentBox.put(addedObject["id"], newAddedObject);
+        return true;
+      }
     } catch (e) {
       _errorCallback(e.toString());
       return false;
     }
   }
 
+  /// Updates an object in the current opened box
+  ///
+  /// Returns a Future<bool> indicating success or failure of the operation.
   Future<bool> updateObject() async {
     final boxValue = _hiveViewState.selectedBoxValue!;
     final currentBox = _hiveViewState.currentOpenedBox!;
@@ -47,6 +87,12 @@ class BoxUpdateHandler {
     );
   }
 
+  /// Helper method to update an object in a box
+  ///
+  /// [box] : The Hive box.
+  /// [indexOfObject] : The index of the object to update.
+  /// [replacementObject] : The new object to replace the existing one.
+  /// Returns a Future<bool> indicating success or failure of the operation.
   Future<bool> _updateBoxWithObject(
     Box box,
     int indexOfObject,
@@ -63,21 +109,9 @@ class BoxUpdateHandler {
     }
   }
 
-  /* Future<bool> _addBoxWithObject(
-    Box box,
-    var id,
-    dynamic replacementObject,
-  ) async {
-    try {
-      final fromJson = _hiveViewState.boxesMap[box]!;
-      final addedObject = fromJson(replacementObject);
-      await box.put(id, addedObject);
-      return true;
-    } catch (e) {
-      _errorCallback(e.toString());
-      return false;
-    }
-  }*/
+  /// Deletes a field of an object in the current opened box
+  ///
+  /// Returns a Future<bool> indicating success or failure of the operation.
   Future<bool> deleteFieldOfObject() async {
     final viewState = _hiveViewState;
     final currentBox = viewState.currentOpenedBox!;
@@ -109,25 +143,10 @@ class BoxUpdateHandler {
     );
   }
 
-/* Future<bool> addRowObject(Map<String,dynamic> addedRow) async {
-    final viewState = _hiveViewState;
-    final currentBox = viewState.currentOpenedBox!;
-    var boxValue = viewState.selectedBoxValue!;
-    final nestedObjectIndices = viewState.objectNestedIndices!;
-   // if (nestedObjectIndices.isEmpty) {
-      try {
-     
-          await currentBox.putAt(boxValue.length,addedRow);
-        
-        return true;
-      } catch (e) {
-        _errorCallback(e.toString());
-        return false;
-      }
-   // } 
-   
-  }
-*/
+  /// Deletes multiple rows of an object in the current opened box
+  ///
+  /// [rowIndices] : A list of indices of the rows to delete.
+  /// Returns a Future<bool> indicating success or failure of the operation.
   Future<bool> deleteRowObject(List<int> rowIndices) async {
     final viewState = _hiveViewState;
     final currentBox = viewState.currentOpenedBox!;

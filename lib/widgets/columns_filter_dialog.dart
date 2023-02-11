@@ -71,7 +71,8 @@ class _ColumnsFilterDialogState extends State<ColumnsFilterDialog> {
                     setState(() {});
                   },
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.red, fixedSize: const Size(
+                    foregroundColor: Colors.red,
+                    fixedSize: const Size(
                       100,
                       50,
                     ),
@@ -83,7 +84,8 @@ class _ColumnsFilterDialogState extends State<ColumnsFilterDialog> {
                     Navigator.pop(context, _selectedColumns);
                   },
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.green, fixedSize: const Size(
+                    foregroundColor: Colors.green,
+                    fixedSize: const Size(
                       100,
                       50,
                     ),

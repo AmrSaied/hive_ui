@@ -1,12 +1,13 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_ui/widgets/update_dialog_type_picker.dart';
-import 'package:intl/intl.dart';
+
+import '../services/flutter_clipboard_hive_ui.dart';
+import 'update_dialog_type_picker.dart';
 
 class UpdateDialog extends StatefulWidget {
   final Map<String, dynamic> objectAsJson;
   final String fieldName;
-  final DateFormat? dateFormat;
+  final String? dateFormat;
+
   const UpdateDialog({
     Key? key,
     required this.objectAsJson,
@@ -23,6 +24,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
   UpdateDialogType fieldType = UpdateDialogType.string;
   late TextEditingController _controller;
   late bool booleanFieldValue;
+
   @override
   void initState() {
     _controller = TextEditingController();
@@ -61,8 +63,9 @@ class _UpdateDialogState extends State<UpdateDialog> {
         ),
       );
       if (datePicked != null) {
-        _controller.text =
-            widget.dateFormat?.format(datePicked) ?? datePicked.toString();
+        // _controller.text =
+        //     widget.dateFormat?.format(datePicked) ?? datePicked.toString();
+        _controller.text = datePicked.toString();
       }
     }
   }
@@ -192,7 +195,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                           ),
                         ),
                         onPressed: () {
-                          FlutterClipboard.copy(
+                          FlutterClipboardHiveUi.copy(
                               jsonObject[widget.fieldName].toString());
                         },
                         child: Text(
